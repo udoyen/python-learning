@@ -1,3 +1,4 @@
+import os
 import http.client
 import threading
 import logging
@@ -42,8 +43,11 @@ def __main__():
     while continue_input:
         host = input("host: ")
         port = 80 # int(input("port: "))
-        path = "\\" # input("path: ")
+        path = "/" # input("path (e.g., / for root or /subpath/ on Unix-like systems): ")
         file_path = input("output file absolute path: ")
+        # if os.name == 'nt':  # Checks if the operating system is Windows
+        #    file_path = file_path.replace("/", "\\")  # Replace forward slashes with backslashes
+        
         req = {"host": host, "port": port, "path": path}
         threads.append(MyCrawler(req, file_path))
         continue_input = input("add another? (y/N) ") == "y"
